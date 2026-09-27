@@ -12,14 +12,14 @@
 
 ## Run it now
 
-**No install:** [scan a public GitHub repository in the browser](https://site-creator-vinext-starter.surfaceproof.workers.dev/mcp-scan). The browser preflight checks only public MCP config paths and never executes repository code or MCP servers.
+**No install:** [scan a public GitHub repository in the browser](https://orynval.com/mcp-scan). The browser preflight checks only public MCP config paths and never executes repository code or MCP servers.
 
 ### Share a live repo result
 
 After scanning a public repository, copy the generated README badge from the result page. The badge reports only MCP dependency-drift findings — it is **not** a general security score.
 
 ```markdown
-[![MCP Drift Check](https://site-creator-vinext-starter.surfaceproof.workers.dev/api/mcp-badge?repo=OWNER%2FREPO)](https://site-creator-vinext-starter.surfaceproof.workers.dev/mcp-scan?repo=OWNER%2FREPO)
+[![MCP Drift Check](https://orynval.com/api/mcp-badge?repo=OWNER%2FREPO)](https://orynval.com/mcp-scan?repo=OWNER%2FREPO)
 ```
 
 The badge updates from bounded public MCP config paths and links back to a shareable zero-execution scan.
@@ -160,7 +160,7 @@ It identifies a **change and review risk** that a security team may want to inve
 
 ## Public examples
 
-We documented seven concrete public repositories where MCP configs contained mutable npm/npx package references. This is a **targeted examples set, not a prevalence study**. See the [public research page](https://site-creator-vinext-starter.surfaceproof.workers.dev/research/mcp-dependency-drift) or [`research/public-mcp-dependency-drift-examples.md`](research/public-mcp-dependency-drift-examples.md).
+We documented seven concrete public repositories where MCP configs contained mutable npm/npx package references. This is a **targeted examples set, not a prevalence study**. See the [public research page](https://orynval.com/research/mcp-dependency-drift) or [`research/public-mcp-dependency-drift-examples.md`](research/public-mcp-dependency-drift-examples.md).
 
 ## Public GitHub code-search sample
 
@@ -192,7 +192,7 @@ Found this pattern in a production AI environment?
 
 Do **not** post sensitive configuration, credentials, access tokens, customer information, internal URLs or proprietary data in a public GitHub issue.
 
-Request a private security review: **https://site-creator-vinext-starter.surfaceproof.workers.dev/security-triage?utm_source=github&utm_medium=repo&utm_campaign=mcp_drift_check**
+Request a private security review: **https://orynval.com/security-triage?utm_source=github&utm_medium=repo&utm_campaign=mcp_drift_check**
 
 A review can help determine:
 
