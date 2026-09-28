@@ -61,8 +61,8 @@ jobs:
   mcp-drift:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
-      - uses: tomelias10/mcp-drift-check@d08219c48e7b3c608f5429797dc21e40b2a46293 # v0.3.1
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - uses: tomelias10/mcp-drift-check@40e9f6760c56a0621f8aa8d91579ada77bd7414f # v0.3.1 tested
 ```
 
 That scans **workspace MCP config locations only** by default, produces a Markdown report in the GitHub Actions job summary, adds visible GitHub PR annotations for non-safe findings, and fails the check when a `HIGH` mutable package reference is found.
@@ -75,9 +75,9 @@ permissions:
   security-events: write
 
 steps:
-  - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+  - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
   - id: mcp
-    uses: tomelias10/mcp-drift-check@d08219c48e7b3c608f5429797dc21e40b2a46293 # v0.3.1
+    uses: tomelias10/mcp-drift-check@40e9f6760c56a0621f8aa8d91579ada77bd7414f # v0.3.1 tested
     with:
       fail-on-high: 'false'
   - uses: github/codeql-action/upload-sarif@1190a975f95ce23525efb6a3fc21ea29567c1b52 # v3
