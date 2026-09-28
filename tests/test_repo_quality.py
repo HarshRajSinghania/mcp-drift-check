@@ -6,6 +6,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 README = ROOT / "README.md"
 TEXT_SUFFIXES = {".md", ".yml", ".yaml", ".py", ".toml", ".txt"}
+ACTION_REF = re.compile(r"\buses:\s*([^\s#]+)@([^\s#]+)")
+IMMUTABLE_SHA = re.compile(r"^[0-9a-fA-F]{40}$")
 
 
 class RepositoryQualityTests(unittest.TestCase):
@@ -40,6 +42,21 @@ class RepositoryQualityTests(unittest.TestCase):
             if path and not (ROOT / path).exists():
                 missing.append(target)
         self.assertEqual(missing, [], f"Broken relative README links: {missing}")
+
+    def test_external_github_actions_are_pinned_to_commit_sha(self):
+        files = [README]
+        workflow_dir = ROOT / ".github" / "workflows"
+        files.extend(sorted(workflow_dir.glob("*.yml")))
+        files.extend(sorted(workflow_dir.glob("*.yaml")))
+        offenders = []
+        for path in files:
+            text = path.read_text(encoding="utf-8")
+            for action, ref in ACTION_REF.findall(text):
+                if action.startswith("./"):
+                    continue
+                if not IMMUTABLE_SHA.fullmatch(ref):
+                    offenders.append(f"{path.relative_to(ROOT)}: {action}@{ref}")
+        self.assertEqual(offenders, [], f"Mutable GitHub Action refs remain: {offenders}")
 
 
 if __name__ == "__main__":
