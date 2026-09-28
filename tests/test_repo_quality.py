@@ -58,6 +58,11 @@ class RepositoryQualityTests(unittest.TestCase):
                     offenders.append(f"{path.relative_to(ROOT)}: {action}@{ref}")
         self.assertEqual(offenders, [], f"Mutable GitHub Action refs remain: {offenders}")
 
+    def test_security_hygiene_files_exist(self):
+        required = [ROOT / "SECURITY.md", ROOT / ".github" / "dependabot.yml"]
+        missing = [str(path.relative_to(ROOT)) for path in required if not path.exists()]
+        self.assertEqual(missing, [], f"Required repository security files missing: {missing}")
+
 
 if __name__ == "__main__":
     unittest.main()
