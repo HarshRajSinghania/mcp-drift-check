@@ -61,8 +61,8 @@ jobs:
   mcp-drift:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: tomelias10/mcp-drift-check@v0
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: tomelias10/mcp-drift-check@d08219c48e7b3c608f5429797dc21e40b2a46293 # v0.3.1
 ```
 
 That scans **workspace MCP config locations only** by default, produces a Markdown report in the GitHub Actions job summary, adds visible GitHub PR annotations for non-safe findings, and fails the check when a `HIGH` mutable package reference is found.
@@ -75,12 +75,12 @@ permissions:
   security-events: write
 
 steps:
-  - uses: actions/checkout@v4
+  - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
   - id: mcp
-    uses: tomelias10/mcp-drift-check@v0
+    uses: tomelias10/mcp-drift-check@d08219c48e7b3c608f5429797dc21e40b2a46293 # v0.3.1
     with:
       fail-on-high: 'false'
-  - uses: github/codeql-action/upload-sarif@v3
+  - uses: github/codeql-action/upload-sarif@1190a975f95ce23525efb6a3fc21ea29567c1b52 # v3
     with:
       sarif_file: ${{ steps.mcp.outputs.sarif-file }}
   - if: steps.mcp.outputs.exit-code == '1'
