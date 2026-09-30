@@ -163,6 +163,8 @@ It identifies a **change and review risk** that a security team may want to inve
 
 We documented seven concrete public repositories where MCP configs contained mutable npm/npx package references. This is a **targeted examples set, not a prevalence study**. See the [public research page](https://orynval.com/research/mcp-dependency-drift) or [`research/public-mcp-dependency-drift-examples.md`](research/public-mcp-dependency-drift-examples.md).
 
+One public follow-up produced a concrete configuration change: after a [Datadog Android SDK maintainer agreed with the report](https://github.com/DataDog/dd-sdk-android/issues/3904#issuecomment-5886859424), [PR #3928](https://github.com/DataDog/dd-sdk-android/pull/3928) removed the Mobile MCP entry and was merged on 2026-09-30. This documents a maintainer response, not exploitation or a customer engagement.
+
 ## Public GitHub code-search sample
 
 On 2026-09-25, the documented search method returned **296** de-duplicated hits whose exact basename was `.mcp.json`. We fetched and parsed **295** of them; **259** contained npm/npx package references, and **232** of those configs contained at least one `HIGH` mutable package reference. Across the sample, the classifier saw **392** npm/npx package references: 360 `HIGH`, 3 `MEDIUM`, and 29 `SAFE`.
