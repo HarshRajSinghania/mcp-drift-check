@@ -15,8 +15,8 @@ jobs:
       matrix:
         python-version: ['3.9', '3.11', '3.13']
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
           python-version: ${{ matrix.python-version }}
       - run: python -m pip install .
@@ -25,3 +25,23 @@ jobs:
       - run: PYTHONPATH=src python scripts/public_census.py --help >/dev/null
       - run: mcp-drift-check scan examples/safe-config.json
       - run: mcp-drift-check scan examples/mutable-config.json || test $? -eq 1
+      - name: Orynval local CLI smoke test
+        if: matrix.python-version == '3.11'
+        run: |
+          set +e
+          orynval-security-check . --output /tmp/orynval-local.md
+          code=$?
+          set -e
+          test "$code" -eq 0
+          grep -q "# Orynval Security Check" /tmp/orynval-local.md
+          grep -q "orynval.com/security-triage" /tmp/orynval-local.md
+      - name: Orynval public GitHub E2E scan
+        if: matrix.python-version == '3.11'
+        run: |
+          set +e
+          orynval-security-check tomelias10/mcp-drift-check --clone-timeout 60 --output /tmp/orynval-public.md
+          code=$?
+          set -e
+          test "$code" -eq 0
+          grep -q 'Target: `tomelias10/mcp-drift-check`' /tmp/orynval-public.md
+          grep -q "orynval.com/security-triage" /tmp/orynval-public.md
