@@ -165,6 +165,18 @@ We documented seven concrete public repositories where MCP configs contained mut
 
 One public follow-up produced a concrete configuration change: after a [Datadog Android SDK maintainer agreed with the report](https://github.com/DataDog/dd-sdk-android/issues/3904#issuecomment-5886859424), [PR #3928](https://github.com/DataDog/dd-sdk-android/pull/3928) removed the Mobile MCP entry and was merged on 2026-09-30. This documents a maintainer response, not exploitation or a customer engagement.
 
+## External adoption and maintainer outcomes
+
+Public follow-up has now produced several concrete third-party outcomes:
+
+- **BuilderIO / agent-native** merged [PR #5896](https://github.com/BuilderIO/agent-native/pull/5896), pinning a mutable MCP package reference to an exact version.
+- **Datadog Android SDK** merged [PR #3928](https://github.com/DataDog/dd-sdk-android/pull/3928), removing the Mobile MCP configuration after a maintainer agreed with the dependency-drift report.
+- **Awesome-MCP** merged [PR #236](https://github.com/AlexMili/Awesome-MCP/pull/236), listing `mcp-drift` as a security tool.
+- **agentic-awesome-skills** merged [PR #1607](https://github.com/sickn33/agentic-awesome-skills/pull/1607), adding the MCP dependency-drift audit skill.
+- **awesome-mcp** merged [PR #128](https://github.com/abordage/awesome-mcp/pull/128), adding MCP Drift Check to its MCP security section.
+
+These are public adoption/remediation signals, **not customer engagements, exploit evidence, or endorsements**.
+
 ## Public GitHub code-search sample
 
 On 2026-09-25, the documented search method returned **296** de-duplicated hits whose exact basename was `.mcp.json`. We fetched and parsed **295** of them; **259** contained npm/npx package references, and **232** of those configs contained at least one `HIGH` mutable package reference. Across the sample, the classifier saw **392** npm/npx package references: 360 `HIGH`, 3 `MEDIUM`, and 29 `SAFE`.
